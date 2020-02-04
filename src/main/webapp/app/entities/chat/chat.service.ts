@@ -52,7 +52,7 @@ export class ChatService {
 
   protected convertDateFromClient(chat: IChat): IChat {
     const copy: IChat = Object.assign({}, chat, {
-      date: chat.date && chat.date.isValid() ? chat.date.format(DATE_FORMAT) : undefined
+      date: chat.date && chat.date.isValid() ? chat.date.toJSON() : undefined
     });
     return copy;
   }

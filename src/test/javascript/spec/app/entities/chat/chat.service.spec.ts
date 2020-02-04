@@ -2,7 +2,7 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { ChatService } from 'app/entities/chat/chat.service';
 import { IChat, Chat } from 'app/shared/model/chat.model';
 
@@ -31,7 +31,7 @@ describe('Service Tests', () => {
       it('should find an element', () => {
         const returnedFromService = Object.assign(
           {
-            date: currentDate.format(DATE_FORMAT)
+            date: currentDate.format(DATE_TIME_FORMAT)
           },
           elemDefault
         );
@@ -49,7 +49,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 'ID',
-            date: currentDate.format(DATE_FORMAT)
+            date: currentDate.format(DATE_TIME_FORMAT)
           },
           elemDefault
         );
@@ -74,7 +74,7 @@ describe('Service Tests', () => {
             message: 'BBBBBB',
             srcUser: 'BBBBBB',
             dstUser: 'BBBBBB',
-            date: currentDate.format(DATE_FORMAT)
+            date: currentDate.format(DATE_TIME_FORMAT)
           },
           elemDefault
         );
@@ -100,7 +100,7 @@ describe('Service Tests', () => {
             message: 'BBBBBB',
             srcUser: 'BBBBBB',
             dstUser: 'BBBBBB',
-            date: currentDate.format(DATE_FORMAT)
+            date: currentDate.format(DATE_TIME_FORMAT)
           },
           elemDefault
         );

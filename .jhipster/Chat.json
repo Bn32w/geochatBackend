@@ -12,6 +12,10 @@
         {
             "fieldName": "dstUser",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
         }
     ],
     "relationships": [],

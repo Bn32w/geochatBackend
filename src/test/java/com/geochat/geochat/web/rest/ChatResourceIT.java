@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.Validator;
 
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static com.geochat.geochat.web.rest.TestUtil.createFormattingConversionService;
@@ -40,6 +42,9 @@ public class ChatResourceIT {
 
     private static final String DEFAULT_DST_USER = "AAAAAAAAAA";
     private static final String UPDATED_DST_USER = "BBBBBBBBBB";
+
+    private static final LocalDate DEFAULT_DATE = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private ChatRepository chatRepository;
@@ -82,7 +87,8 @@ public class ChatResourceIT {
         Chat chat = new Chat()
             .message(DEFAULT_MESSAGE)
             .srcUser(DEFAULT_SRC_USER)
-            .dstUser(DEFAULT_DST_USER);
+            .dstUser(DEFAULT_DST_USER)
+            .date(DEFAULT_DATE);
         return chat;
     }
     /**
@@ -95,7 +101,8 @@ public class ChatResourceIT {
         Chat chat = new Chat()
             .message(UPDATED_MESSAGE)
             .srcUser(UPDATED_SRC_USER)
-            .dstUser(UPDATED_DST_USER);
+            .dstUser(UPDATED_DST_USER)
+            .date(UPDATED_DATE);
         return chat;
     }
 
@@ -122,6 +129,7 @@ public class ChatResourceIT {
         assertThat(testChat.getMessage()).isEqualTo(DEFAULT_MESSAGE);
         assertThat(testChat.getSrcUser()).isEqualTo(DEFAULT_SRC_USER);
         assertThat(testChat.getDstUser()).isEqualTo(DEFAULT_DST_USER);
+        assertThat(testChat.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
     @Test
@@ -155,7 +163,8 @@ public class ChatResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(chat.getId())))
             .andExpect(jsonPath("$.[*].message").value(hasItem(DEFAULT_MESSAGE)))
             .andExpect(jsonPath("$.[*].srcUser").value(hasItem(DEFAULT_SRC_USER)))
-            .andExpect(jsonPath("$.[*].dstUser").value(hasItem(DEFAULT_DST_USER)));
+            .andExpect(jsonPath("$.[*].dstUser").value(hasItem(DEFAULT_DST_USER)))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
     
     @Test
@@ -170,7 +179,8 @@ public class ChatResourceIT {
             .andExpect(jsonPath("$.id").value(chat.getId()))
             .andExpect(jsonPath("$.message").value(DEFAULT_MESSAGE))
             .andExpect(jsonPath("$.srcUser").value(DEFAULT_SRC_USER))
-            .andExpect(jsonPath("$.dstUser").value(DEFAULT_DST_USER));
+            .andExpect(jsonPath("$.dstUser").value(DEFAULT_DST_USER))
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
     }
 
     @Test
@@ -192,7 +202,8 @@ public class ChatResourceIT {
         updatedChat
             .message(UPDATED_MESSAGE)
             .srcUser(UPDATED_SRC_USER)
-            .dstUser(UPDATED_DST_USER);
+            .dstUser(UPDATED_DST_USER)
+            .date(UPDATED_DATE);
 
         restChatMockMvc.perform(put("/api/chats")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -206,6 +217,7 @@ public class ChatResourceIT {
         assertThat(testChat.getMessage()).isEqualTo(UPDATED_MESSAGE);
         assertThat(testChat.getSrcUser()).isEqualTo(UPDATED_SRC_USER);
         assertThat(testChat.getDstUser()).isEqualTo(UPDATED_DST_USER);
+        assertThat(testChat.getDate()).isEqualTo(UPDATED_DATE);
     }
 
     @Test

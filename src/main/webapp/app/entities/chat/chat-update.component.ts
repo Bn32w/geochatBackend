@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IChat, Chat } from 'app/shared/model/chat.model';
 import { ChatService } from './chat.service';
@@ -15,7 +16,6 @@ import { ChatService } from './chat.service';
 })
 export class ChatUpdateComponent implements OnInit {
   isSaving = false;
-  dateDp: any;
 
   editForm = this.fb.group({
     id: [],
@@ -39,7 +39,7 @@ export class ChatUpdateComponent implements OnInit {
       message: chat.message,
       srcUser: chat.srcUser,
       dstUser: chat.dstUser,
-      date: chat.date
+      date: chat.date != null ? chat.date.format(DATE_TIME_FORMAT) : null
     });
   }
 
@@ -64,7 +64,7 @@ export class ChatUpdateComponent implements OnInit {
       message: this.editForm.get(['message'])!.value,
       srcUser: this.editForm.get(['srcUser'])!.value,
       dstUser: this.editForm.get(['dstUser'])!.value,
-      date: this.editForm.get(['date'])!.value
+      date: this.editForm.get(['date'])!.value != null ? moment(this.editForm.get(['date'])!.value, DATE_TIME_FORMAT) : undefined
     };
   }
 

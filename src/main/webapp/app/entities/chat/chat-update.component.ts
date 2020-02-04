@@ -4,6 +4,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
 
 import { IChat, Chat } from 'app/shared/model/chat.model';
 import { ChatService } from './chat.service';
@@ -14,12 +15,14 @@ import { ChatService } from './chat.service';
 })
 export class ChatUpdateComponent implements OnInit {
   isSaving = false;
+  dateDp: any;
 
   editForm = this.fb.group({
     id: [],
     message: [],
     srcUser: [],
-    dstUser: []
+    dstUser: [],
+    date: []
   });
 
   constructor(protected chatService: ChatService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -35,7 +38,8 @@ export class ChatUpdateComponent implements OnInit {
       id: chat.id,
       message: chat.message,
       srcUser: chat.srcUser,
-      dstUser: chat.dstUser
+      dstUser: chat.dstUser,
+      date: chat.date
     });
   }
 
@@ -59,7 +63,8 @@ export class ChatUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       message: this.editForm.get(['message'])!.value,
       srcUser: this.editForm.get(['srcUser'])!.value,
-      dstUser: this.editForm.get(['dstUser'])!.value
+      dstUser: this.editForm.get(['dstUser'])!.value,
+      date: this.editForm.get(['date'])!.value
     };
   }
 

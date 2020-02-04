@@ -1,6 +1,8 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { take, map } from 'rxjs/operators';
+import * as moment from 'moment';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { ChatService } from 'app/entities/chat/chat.service';
 import { IChat, Chat } from 'app/shared/model/chat.model';
 
@@ -11,6 +13,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IChat;
     let expectedResult: IChat | IChat[] | boolean | null;
+    let currentDate: moment.Moment;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
@@ -19,13 +22,19 @@ describe('Service Tests', () => {
       injector = getTestBed();
       service = injector.get(ChatService);
       httpMock = injector.get(HttpTestingController);
+      currentDate = moment();
 
-      elemDefault = new Chat('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Chat('ID', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', currentDate);
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+        const returnedFromService = Object.assign(
+          {
+            date: currentDate.format(DATE_FORMAT)
+          },
+          elemDefault
+        );
         service
           .find('123')
           .pipe(take(1))
@@ -39,11 +48,17 @@ describe('Service Tests', () => {
       it('should create a Chat', () => {
         const returnedFromService = Object.assign(
           {
-            id: 'ID'
+            id: 'ID',
+            date: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            date: currentDate
+          },
+          returnedFromService
+        );
         service
           .create(new Chat())
           .pipe(take(1))
@@ -58,12 +73,18 @@ describe('Service Tests', () => {
           {
             message: 'BBBBBB',
             srcUser: 'BBBBBB',
-            dstUser: 'BBBBBB'
+            dstUser: 'BBBBBB',
+            date: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
 
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            date: currentDate
+          },
+          returnedFromService
+        );
         service
           .update(expected)
           .pipe(take(1))
@@ -78,11 +99,17 @@ describe('Service Tests', () => {
           {
             message: 'BBBBBB',
             srcUser: 'BBBBBB',
-            dstUser: 'BBBBBB'
+            dstUser: 'BBBBBB',
+            date: currentDate.format(DATE_FORMAT)
           },
           elemDefault
         );
-        const expected = Object.assign({}, returnedFromService);
+        const expected = Object.assign(
+          {
+            date: currentDate
+          },
+          returnedFromService
+        );
         service
           .query()
           .pipe(

@@ -4,6 +4,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * A Chat.
@@ -24,6 +25,9 @@ public class Chat implements Serializable {
 
     @Field("dst_user")
     private String dstUser;
+
+    @Field("date")
+    private LocalDate date;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
@@ -72,6 +76,19 @@ public class Chat implements Serializable {
     public void setDstUser(String dstUser) {
         this.dstUser = dstUser;
     }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Chat date(LocalDate date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -97,6 +114,7 @@ public class Chat implements Serializable {
             ", message='" + getMessage() + "'" +
             ", srcUser='" + getSrcUser() + "'" +
             ", dstUser='" + getDstUser() + "'" +
+            ", date='" + getDate() + "'" +
             "}";
     }
 }

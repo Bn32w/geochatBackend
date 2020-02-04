@@ -22,6 +22,7 @@
             <th scope="col" ><span>Message</span></th>
             <th scope="col" ><span>Src User</span></th>
             <th scope="col" ><span>Dst User</span></th>
+            <th scope="col" ><span>Date</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
@@ -31,6 +32,7 @@
                 <td>{{chat.message}}</td>
                 <td>{{chat.srcUser}}</td>
                 <td>{{chat.dstUser}}</td>
+                <td>{{chat.date | date:'mediumDate'}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

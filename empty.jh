@@ -1,0 +1,6 @@
+
+entity Chat{
+	Message String
+    srcUser String
+    dstUser String
+}

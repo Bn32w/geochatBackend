@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-chat-heading">Create or edit a Chat</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_message">Message</label>
+                    <input type="text" class="form-control" name="message" id="field_message"
+                           formControlName="message"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_srcUser">Src User</label>
+                    <input type="text" class="form-control" name="srcUser" id="field_srcUser"
+                           formControlName="srcUser"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dstUser">Dst User</label>
+                    <input type="text" class="form-control" name="dstUser" id="field_dstUser"
+                           formControlName="dstUser"/>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
